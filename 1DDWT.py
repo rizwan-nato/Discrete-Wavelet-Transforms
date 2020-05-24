@@ -1,6 +1,8 @@
 import numpy as np
 from math import sqrt
 
+## Supposition: lenght of the input N = 2^J
+## The scale is determined by N
 
 def one_DDWT(input):
     l = len(input) // 2
@@ -36,6 +38,6 @@ def inverse_one_DDWT(input):
 
     return output
 
-input = np.array([1, 4, -3, 0], dtype=float)
+input = np.array([1, 7, -3, 1,5,-1,2,4], dtype=float)
 print(one_DDWT(input))
 print(inverse_one_DDWT(one_DDWT(input)))
