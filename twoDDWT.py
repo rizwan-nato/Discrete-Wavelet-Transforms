@@ -1,43 +1,43 @@
 from oneDDWT import *
 import numpy as np
 import matplotlib.pyplot as plt
-import cv2
+import matplotlib.patches as patches
 
-
-def twoDDWT(image,scale):
+def twoDDWT(image_input,scale):
+    image = np.copy(image_input)
     (l,c) = np.shape(image)
-    for il in range(l):    #run through the lines
+
+    for il in range(l):     #run through the lines
         image[il,:] = one_DDWT(image[il,:],scale)
 
+    for ic in range(c):     #run through the columns
+        image[:, ic] = one_DDWT(image[:, ic], scale)
 
-    for ic in range(c):
-        image[:,ic] = one_DDWT(image[:,ic],scale)
+
     return image
 
-def inverse_twoDDWT(image,scale):
+def inverse_twoDDWT(image_input,scale):
+    image = np.copy(image_input)
     (l,c) = np.shape(image)
+
     for ic in range(c):
         image[:,ic] = inverse_one_DDWT(image[:,ic],scale)
 
-
-    for il in range(l):    #run through the lines
+    for il in range(l):
         image[il,:] = inverse_one_DDWT(image[il,:],scale)
-
-
 
     return image
 
-image = cv2.imread('image.png', cv2.IMREAD_GRAYSCALE)
-image = image.astype('float64')
+def plot_transform(transform, scale):
+    (l,c) = np.shape(transform)
 
-scale = 2
+    ig, ax = plt.subplots(1)
+    ax.imshow(transform,cmap='gray')
 
-transform = twoDDWT(image,scale)
-plt.figure(1)
-plt.imshow(transform,cmap='gray')
-plt.show()
+    for i in range(scale):
+        rect = patches.Rectangle((l//2, c//2), l//2, c//2, linewidth=1, edgecolor='b', alpha = 0.1)
+        ax.add_patch(rect)
+        l = l//2
+        c = c//2
 
-reconstruct = inverse_twoDDWT(transform,scale)
-plt.figure(2)
-plt.imshow(reconstruct,cmap='gray')
-plt.show()
+    plt.show()

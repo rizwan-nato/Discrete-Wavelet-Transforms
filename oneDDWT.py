@@ -2,9 +2,9 @@ import numpy as np
 from math import sqrt
 
 ## Supposition: lenght of the input N = 2^J
-## The scale is determined by N
 
-def one_DDWT(input,scale):
+def one_DDWT(list,scale):
+    input = np.copy(list)
     l = len(input) // 2
     while (l != 0 ):
         output = np.copy(input)
@@ -21,7 +21,8 @@ def one_DDWT(input,scale):
     return output
 
 
-def inverse_one_DDWT(input,scale):
+def inverse_one_DDWT(list,scale):
+    input = np.copy(list)
     N = int(len(input))
     max_scale = np.log(N)/np.log(2)
     nb_to_skip = max_scale - scale
@@ -47,8 +48,3 @@ def inverse_one_DDWT(input,scale):
             l = l * 2
 
     return output
-
-# list = np.array([1,4,-3,0,1,4,-3,0],dtype=float)
-# transform = one_DDWT(list,scale=3)
-# inverse = inverse_one_DDWT(transform,scale=3)
-# print(list,transform,inverse)
