@@ -35,7 +35,7 @@ def plot_transform(transform, scale):
     ax.imshow(transform,cmap='gray')
 
     for i in range(scale):
-        rect = patches.Rectangle((l//2, c//2), l//2, c//2, linewidth=1, edgecolor='b', alpha = 0.1)
+        rect = patches.Rectangle((l//2, c//2), l//2, c//2, linewidth=1, edgecolor='b', alpha = 0.1)  #Add a rectangle of color in the diagonal coefficients
         ax.add_patch(rect)
         l = l//2
         c = c//2

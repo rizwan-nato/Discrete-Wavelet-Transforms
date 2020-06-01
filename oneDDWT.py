@@ -9,14 +9,14 @@ def one_DDWT(list,scale):
     while (l != 0 ):
         output = np.copy(input)
         for i in range(l):
-            sum = (input[2 * i] + input[2 * i + 1]) / sqrt(2)
-            difference = (input[2 * i] - input[2 * i + 1]) / sqrt(2)
-            output[i] = sum
-            output[l + i] = difference
+            sum = (input[2 * i] + input[2 * i + 1]) / sqrt(2)           #h_phi pass
+            difference = (input[2 * i] - input[2 * i + 1]) / sqrt(2)    #h_psi pass
+            output[i] = sum                                             #Put the averaging at the right place
+            output[l + i] = difference                                  #Put the difference at the right pplace
         input = np.copy(output)
         l = l // 2
         scale -= 1
-        if scale == 0:
+        if scale == 0:                                                  #Continue until we did the number of scale wanted
             break
     return output
 
